@@ -5,7 +5,7 @@ package com.flyzend.baseproject.rx;
  * RxBus 事件Bean
  */
 
-public class EventBean {
+public class BaseEventBean {
     private int type;
     private Object event;
 

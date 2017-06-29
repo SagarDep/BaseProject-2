@@ -33,15 +33,15 @@ public class RxBus {
         return instance;
     }
 
-    public Disposable getEvent(RxAppCompatActivity activity, int code, Consumer<EventBean> observer) {
+    public Disposable getEvent(RxAppCompatActivity activity, int code, Consumer<BaseEventBean> observer) {
         return new BuildFlowable(activity, code).bindLifeCycle(toFlowable()).subscribe(observer);
     }
 
-    public Disposable getEvent(com.trello.rxlifecycle2.components.support.RxFragment rxV4Fragment, int code, Consumer<EventBean> observer) {
+    public Disposable getEvent(com.trello.rxlifecycle2.components.support.RxFragment rxV4Fragment, int code, Consumer<BaseEventBean> observer) {
         return new BuildFlowable(rxV4Fragment, code).bindLifeCycle(toFlowable()).subscribe(observer);
     }
 
-    public Disposable getEvent(RxFragment rxFragment, int code, Consumer<EventBean> observer) {
+    public Disposable getEvent(RxFragment rxFragment, int code, Consumer<BaseEventBean> observer) {
         return new BuildFlowable(rxFragment, code).bindLifeCycle(toFlowable()).subscribe(observer);
     }
 //
@@ -58,7 +58,7 @@ public class RxBus {
 //    }
 
     public void postEvent(final int eventType, final Object event) {
-        EventBean eventBean = new EventBean();
+        BaseEventBean eventBean = new BaseEventBean();
         eventBean.setType(eventType);
         eventBean.setEvent(event);
         processorBus.onNext(eventBean);
@@ -97,7 +97,7 @@ public class RxBus {
             flowable = flowable.filter(new Predicate() {
                 @Override
                 public boolean test(Object o) throws Exception {
-                    return mEventCode == ((EventBean) o).getType();
+                    return mEventCode == ((BaseEventBean) o).getType();
                 }
             });
             if (mRxAppCompatActivity != null) {
