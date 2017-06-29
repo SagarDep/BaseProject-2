@@ -43,6 +43,8 @@ public class SwipeRecyclerView extends LinearLayout{
         mSwipeRefreshLayout = ViewUtil.findViewInContainer(this, R.id.swipeRefreshLayout);
         mRecyclerView = ViewUtil.findViewInContainer(this, R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+        //默认不允许刷新，按需要开启
+        mSwipeRefreshLayout.setEnabled(false);
     }
 
 
