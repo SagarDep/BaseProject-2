@@ -26,7 +26,7 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.6.1'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     //RX生命周期管理，避免内存泄漏
     compile 'com.trello.rxlifecycle2:rxlifecycle:2.0.1'
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
