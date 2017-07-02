@@ -21,7 +21,8 @@ public class BaseEventBean {
         return event;
     }
 
-    public void setEvent(Object event) {
+    public BaseEventBean setEvent(Object event) {
         this.event = event;
+        return this;
     }
 }
