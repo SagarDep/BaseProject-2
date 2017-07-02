@@ -33,14 +33,14 @@ public class BaseV4Fragment extends RxFragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mContext = getActivity();
+        mToastUtil = new ToastUtil(mContext);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mContext = getActivity();
-        mToastUtil = new ToastUtil(mContext);
     }
 
     protected <T extends View> T findAviewById(int viewId) {

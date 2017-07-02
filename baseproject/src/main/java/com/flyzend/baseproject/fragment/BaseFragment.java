@@ -33,14 +33,9 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         mContext = getActivity();
         mToastUtil = new ToastUtil(mContext);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     protected <T extends View> T findAviewById(int viewId) {
