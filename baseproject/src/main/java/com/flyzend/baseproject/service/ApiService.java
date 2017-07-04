@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.trello.rxlifecycle2.components.RxFragment;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
+import org.json.JSONObject;
+
 import java.util.Map;
 
 import io.reactivex.Flowable;
@@ -104,9 +106,18 @@ public class ApiService {
             return bindLifeCycle(getIBaseService().postJson(url, getRequestBody(body)));
         }
 
+        public Flowable<ResponseBody> postJson(String url, JSONObject body) {
+            return bindLifeCycle(getIBaseService().postJson(url, getRequestBody(body)));
+        }
+
         private RequestBody getRequestBody(Map<String,String> map){
             return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8")
                     ,new Gson().toJson(map));
+        }
+
+        private RequestBody getRequestBody(JSONObject json){
+           return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8")
+                   ,json.toString());
         }
     }
 }
