@@ -92,4 +92,8 @@ public class SwipeRecyclerView extends LinearLayout{
             mRecyclerView.addOnItemTouchListener(onItemTouchListener);
         }
     }
+
+    public RecyclerView getRecyclerView(){
+        return mRecyclerView;
+    }
 }
