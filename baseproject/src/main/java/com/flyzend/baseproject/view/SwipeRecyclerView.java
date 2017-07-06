@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.flyzend.baseproject.utils.ViewUtil;
 import com.flyzend.www.baseproject.R;
 
 /**
@@ -40,8 +39,8 @@ public class SwipeRecyclerView extends LinearLayout{
 
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.swipe_recylerview_layout, this);
-        mSwipeRefreshLayout = ViewUtil.findViewInContainer(this, R.id.swipeRefreshLayout);
-        mRecyclerView = ViewUtil.findViewInContainer(this, R.id.recyclerView);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
         //默认不允许刷新，按需要开启
         mSwipeRefreshLayout.setEnabled(false);
