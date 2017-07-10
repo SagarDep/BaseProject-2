@@ -1,30 +1,13 @@
 package com.flyzend.baseproject.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.TypedValue;
-import android.view.View;
-import android.view.ViewGroup;
 
 /**
  * Created by 王灿 on 2017/1/10.
  */
 
 public class ViewUtil {
-    public static <T extends View> T findViewInContainer(ViewGroup containerView, int toFindViewResId) {
-        if (toFindViewResId < 1 || containerView == null) {
-            return null;
-        }
-        return (T) containerView.findViewById(toFindViewResId);
-    }
-
-    public static <T extends View> T findAViewById(Activity curActivity, int toFindViewResId) {
-        if (curActivity == null || toFindViewResId < 1) {
-            return null;
-        }
-        return (T) curActivity.findViewById(toFindViewResId);
-    }
-
     public static int dp2px(Context context , int dp){
         return  (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,dp,
@@ -34,6 +17,50 @@ public class ViewUtil {
         return  (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,sp,
                 context.getResources().getDisplayMetrics());
+    }
+
+    /**
+     * dp 转 px
+     * @param context
+     * @param dipValue
+     * @return
+     */
+    public static int dip2px(Context context, float dipValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
+    }
+
+    /**
+     * px 转 dp
+     * @param context
+     * @param pxValue
+     * @return
+     */
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * px 转 sp
+     *
+     * @param pxValue
+     * @return
+     */
+    public static int px2sp(Context context, float pxValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    /**
+     * sp 转 px
+     *
+     * @param spValue
+     * @return
+     */
+    public static int sp2px(Context context, float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
     }
 
     /**
