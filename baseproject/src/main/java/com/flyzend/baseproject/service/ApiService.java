@@ -3,6 +3,8 @@ package com.flyzend.baseproject.service;
 
 import com.flyzend.baseproject.client.RetrofitClient;
 import com.google.gson.Gson;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.RxFragment;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -65,11 +67,11 @@ public class ApiService {
             flowable = flowable.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread());
             if (mRxAppCompatActivity != null) {
-                return flowable.compose(mRxAppCompatActivity.<ResponseBody>bindToLifecycle());
+                return flowable.compose(mRxAppCompatActivity.<ResponseBody>bindUntilEvent(ActivityEvent.DESTROY));
             } else if (mRxFragment != null) {
-                return flowable.compose(mRxFragment.<ResponseBody>bindToLifecycle());
+                return flowable.compose(mRxFragment.<ResponseBody>bindUntilEvent(FragmentEvent.DESTROY));
             } else if (mV4Fragment != null){
-                return flowable.compose(mV4Fragment.<ResponseBody>bindToLifecycle());
+                return flowable.compose(mV4Fragment.<ResponseBody>bindUntilEvent(FragmentEvent.DESTROY));
             }
             return flowable;
         }
