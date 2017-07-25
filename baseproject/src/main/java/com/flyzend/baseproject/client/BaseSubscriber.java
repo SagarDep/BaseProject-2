@@ -3,7 +3,6 @@ package com.flyzend.baseproject.client;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.flyzend.baseproject.AppManager;
 import com.flyzend.baseproject.utils.LogUtil;
@@ -53,14 +52,14 @@ public abstract class BaseSubscriber implements Subscriber<ResponseBody> {
         this(true);
     }
 
-    public BaseSubscriber(String loadText){
+    public BaseSubscriber(String loadText) {
         this(true);
         mLoadText = loadText;
     }
 
     protected void showDialog() {
         if (mLoadingDialog == null) {
-            if (Util.isEmpty(mLoadText)){
+            if (Util.isEmpty(mLoadText)) {
                 mLoadText = "正在努力加载中...";
             }
             mLoadingDialog = ProgressDialog.show(mContext, null, mLoadText,
@@ -107,7 +106,7 @@ public abstract class BaseSubscriber implements Subscriber<ResponseBody> {
         if (t != null) {
             t.printStackTrace();
         }
-        LogUtil.e(TAG, "onError" + (TextUtils.isEmpty(t.getMessage()) ? "" : t.getMessage()));
+        LogUtil.e(TAG, getClass().getSimpleName() + ":onError--->>" + ((t == null || Util.isEmpty(t.getMessage())) ? "未知错误" : t.getMessage()));
     }
 
     @Override
