@@ -1,6 +1,8 @@
 package com.flyzend.baseproject.client;
 
 
+import android.content.Context;
+
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
@@ -11,6 +13,27 @@ import okhttp3.ResponseBody;
  */
 
 public abstract class BaseSubscriber extends SimpleSubscriber<ResponseBody> {
+
+    public BaseSubscriber() {
+        super();
+    }
+
+    public BaseSubscriber(Context context, boolean isShowDialog) {
+        super(context, isShowDialog);
+    }
+
+    public BaseSubscriber(Context context) {
+        super(context);
+    }
+
+    public BaseSubscriber(boolean isShowDialog) {
+        super(isShowDialog);
+    }
+
+    public BaseSubscriber(String loadText) {
+        super(loadText);
+    }
+
     @Override
     public void doOnNext(ResponseBody result) {
         try {
