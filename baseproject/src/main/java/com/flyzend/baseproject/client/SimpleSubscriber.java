@@ -24,31 +24,34 @@ abstract public class SimpleSubscriber<T> implements Subscriber<T> {
     protected boolean mIsShowDialog;
     protected Context mContext;
     protected String mLoadText;
+    protected String mTestTag;
 
 
-    public SimpleSubscriber(Context context, boolean isShowDialog) {
+    public SimpleSubscriber(Context context,String testTag, boolean isShowDialog) {
         mContext = context;
         mIsShowDialog = isShowDialog;
         mToastUtil = new ToastUtil(mContext);
     }
 
-    public SimpleSubscriber(Context context) {
-        this(context, true);
+    public SimpleSubscriber(Context context,String testTag) {
+        this(context, testTag,true);
     }
 
-    public SimpleSubscriber(boolean isShowDialog) {
+    public SimpleSubscriber(String testTag,boolean isShowDialog) {
         mContext = AppManager.getInstance().currentActivity();
         mIsShowDialog = isShowDialog;
         mToastUtil = new ToastUtil(mContext);
+        mTestTag = testTag;
     }
 
-    public SimpleSubscriber() {
-        this(true);
-    }
-
-    public SimpleSubscriber(String loadText) {
-        this(true);
+    public SimpleSubscriber(String testTag,String loadText) {
+        this(testTag,true);
         mLoadText = loadText;
+    }
+
+
+    public SimpleSubscriber(String testTag) {
+        this(testTag,true);
     }
 
     protected void showDialog() {

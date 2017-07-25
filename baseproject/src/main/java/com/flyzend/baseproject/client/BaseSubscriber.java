@@ -14,24 +14,24 @@ import okhttp3.ResponseBody;
 
 public abstract class BaseSubscriber extends SimpleSubscriber<ResponseBody> {
 
-    public BaseSubscriber() {
-        super();
+    public BaseSubscriber(Context context, String testTag, boolean isShowDialog) {
+        super(context, testTag, isShowDialog);
     }
 
-    public BaseSubscriber(Context context, boolean isShowDialog) {
-        super(context, isShowDialog);
+    public BaseSubscriber(Context context, String testTag) {
+        super(context, testTag);
     }
 
-    public BaseSubscriber(Context context) {
-        super(context);
+    public BaseSubscriber(String testTag, boolean isShowDialog) {
+        super(testTag, isShowDialog);
     }
 
-    public BaseSubscriber(boolean isShowDialog) {
-        super(isShowDialog);
+    public BaseSubscriber(String testTag, String loadText) {
+        super(testTag, loadText);
     }
 
-    public BaseSubscriber(String loadText) {
-        super(loadText);
+    public BaseSubscriber(String testTag) {
+        super(testTag);
     }
 
     @Override
