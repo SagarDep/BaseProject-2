@@ -24,7 +24,7 @@ public class NetworkActivity extends BaseActivity {
         map.put("key","520520test");
         map.put("city","南京");
         map.put("province","江苏");
-        ApiService.build(this).get(url,map).subscribe(new BaseSubscriber() {
+        ApiService.build(this).get(url,map).subscribe(new BaseSubscriber("TEST-TAG") {
             @Override
             public void doOnNext(String result) {
                 mTextView.setText("get请求结果："+result);
