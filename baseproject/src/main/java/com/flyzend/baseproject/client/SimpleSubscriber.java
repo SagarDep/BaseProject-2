@@ -98,7 +98,7 @@ abstract public class SimpleSubscriber<T> implements Subscriber<T> {
         if (t != null) {
             t.printStackTrace();
         }
-        LogUtil.e(TAG, mContext.getClass().getSimpleName() + ":onError--->>" + ((t == null || Util.isEmpty(t.getMessage())) ? "未知错误" : t.getMessage()));
+        LogUtil.e(TAG, mTestTag + ":onError--->>" + ((t == null || Util.isEmpty(t.getMessage())) ? "未知错误" : t.getMessage()));
     }
 
     @Override
