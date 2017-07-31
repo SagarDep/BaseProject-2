@@ -13,7 +13,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        FileDownloader.init(getApplicationContext());
+        FileDownloader.setupOnApplicationOnCreate(this);
         PreferenceUtils.init(this);
     }
 
