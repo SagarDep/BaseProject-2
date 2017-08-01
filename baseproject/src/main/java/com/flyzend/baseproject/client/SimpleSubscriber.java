@@ -29,6 +29,7 @@ abstract public class SimpleSubscriber<T> implements Subscriber<T> {
 
     public SimpleSubscriber(Context context,String testTag, boolean isShowDialog) {
         mContext = context;
+        mTestTag = testTag;
         mIsShowDialog = isShowDialog;
         mToastUtil = new ToastUtil(mContext);
     }

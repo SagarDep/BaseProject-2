@@ -40,12 +40,12 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
 
     protected <T extends View> T findAviewById(int viewId) {
         if (viewId > 0) {
-            return (T) getActivity().findViewById(viewId);
+            return (T) getView().findViewById(viewId);
         }
         return null;
     }
 
-    protected <T extends View> T findAviewInContainer(ViewGroup containerView, int childViewId) {
+    protected <T extends View> T findAviewInContainer(View containerView, int childViewId) {
         if (containerView == null || childViewId <= 0) {
             return null;
         }
