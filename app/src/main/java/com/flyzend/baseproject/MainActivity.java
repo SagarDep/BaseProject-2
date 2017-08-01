@@ -8,9 +8,9 @@ import android.os.Environment;
 import android.view.View;
 
 import com.flyzend.baseproject.activity.BaseActivity;
+import com.flyzend.baseproject.activity.EasyRecyActivity;
 import com.flyzend.baseproject.activity.FragmentActivity;
 import com.flyzend.baseproject.activity.NetworkActivity;
-import com.flyzend.baseproject.activity.SwipeRecyActivity;
 import com.flyzend.baseproject.activity.ViewpagerActivity;
 import com.flyzend.baseproject.download.SimpleFileDownloadListener;
 import com.flyzend.baseproject.utils.PreferenceUtils;
@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //jumpToActivity  Activiy跳转
-                jumpToActivity(SwipeRecyActivity.class);
+                jumpToActivity(EasyRecyActivity.class);
             }
         });
     }
