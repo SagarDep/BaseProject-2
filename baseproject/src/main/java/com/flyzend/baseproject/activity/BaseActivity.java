@@ -141,11 +141,13 @@ public abstract class BaseActivity extends RxAppCompatActivity
         if (mLoadingDialog == null) {
             mLoadingDialog = ProgressDialog.show(this, null, msg, true, true);
         }
-        mLoadingDialog.show();
+        if (!mLoadingDialog.isShowing()) {
+            mLoadingDialog.show();
+        }
     }
 
     protected void dismissLoading() {
-        if (mLoadingDialog != null) {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
     }

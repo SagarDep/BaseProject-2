@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
@@ -75,7 +76,7 @@ public class EasyRecyclerView extends PtrClassicFrameLayout implements PtrHandle
 
     @Override
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return true;
+        return PtrDefaultHandler.checkContentCanBePulledDown(frame, mRecyclerView, header);
     }
 
     @Override
