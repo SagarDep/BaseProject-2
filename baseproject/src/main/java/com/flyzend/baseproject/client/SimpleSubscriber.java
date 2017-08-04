@@ -18,7 +18,7 @@ import org.reactivestreams.Subscription;
 
 abstract public class SimpleSubscriber<T> implements Subscriber<T> {
     protected ToastUtil mToastUtil;
-    private static final String TAG = "BaseSubscriber";
+    private static final String TAG = "SimpleSubscriber";
     //加载对话框
     protected ProgressDialog mLoadingDialog;
     //是否显示加载对话框
