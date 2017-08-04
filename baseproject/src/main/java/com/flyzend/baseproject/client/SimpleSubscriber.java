@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.flyzend.baseproject.AppManager;
+import com.flyzend.baseproject.utils.Config;
 import com.flyzend.baseproject.utils.LogUtil;
 import com.flyzend.baseproject.utils.ToastUtil;
 import com.flyzend.baseproject.utils.Util;
@@ -94,7 +95,7 @@ abstract public class SimpleSubscriber<T> implements Subscriber<T> {
             disMissDialog();
         }
 
-        new ToastUtil(mContext).showToast("网络异常");
+        new ToastUtil(mContext).showToast(Config.getErrorToastString());
 
         if (t != null) {
             t.printStackTrace();
