@@ -38,6 +38,5 @@ public abstract class SimpleSubscriber extends BaseSubscriber<ResponseBody> {
         }
     }
 
-    //子类去实现具体的解析逻辑
     public abstract void doOnNext(String result);
 }
