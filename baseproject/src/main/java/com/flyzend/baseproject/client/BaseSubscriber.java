@@ -40,7 +40,7 @@ abstract public class BaseSubscriber<T> implements Subscriber<T> {
     }
 
     public BaseSubscriber(Context context, String testTag) {
-        this(context,testTag,"",false);
+        this(context,testTag,"",true);
     }
 
     protected void showDialog() {
