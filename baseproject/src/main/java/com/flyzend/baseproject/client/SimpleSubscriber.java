@@ -1,116 +1,43 @@
 package com.flyzend.baseproject.client;
 
-import android.app.ProgressDialog;
+
 import android.content.Context;
 
-import com.flyzend.baseproject.AppManager;
-import com.flyzend.baseproject.utils.Config;
-import com.flyzend.baseproject.utils.LogUtil;
-import com.flyzend.baseproject.utils.ToastUtil;
-import com.flyzend.baseproject.utils.Util;
+import java.io.IOException;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
+import okhttp3.ResponseBody;
 
 /**
- * Created by Wangleiyong on 2017/7/25.
+ * 订阅者的基类，封装对话框等操作
+ * Created by 王灿 on 2016/12/20.
  */
 
-abstract public class SimpleSubscriber<T> implements Subscriber<T> {
-    protected ToastUtil mToastUtil;
-    private static final String TAG = "SimpleSubscriber";
-    //加载对话框
-    protected ProgressDialog mLoadingDialog;
-    //是否显示加载对话框
-    protected boolean mIsShowDialog;
-    protected Context mContext;
-    protected String mLoadText;
-    protected String mTestTag;
+public abstract class SimpleSubscriber extends BaseSubscriber<ResponseBody> {
 
-
-    public SimpleSubscriber(Context context,String testTag, boolean isShowDialog) {
-        mContext = context;
-        mTestTag = testTag;
-        mIsShowDialog = isShowDialog;
-        mToastUtil = new ToastUtil(mContext);
+    public SimpleSubscriber(Context context, String testTag, String loadText, boolean isShowDialog) {
+        super(context, testTag,loadText, isShowDialog);
     }
 
-    public SimpleSubscriber(Context context,String testTag) {
-        this(context, testTag,true);
+    public SimpleSubscriber(Context context, String testTag, boolean isShowDialog) {
+        super(context, testTag,isShowDialog);
     }
 
-    public SimpleSubscriber(String testTag,boolean isShowDialog) {
-        mContext = AppManager.getInstance().currentActivity();
-        mIsShowDialog = isShowDialog;
-        mToastUtil = new ToastUtil(mContext);
-        mTestTag = testTag;
-    }
-
-    public SimpleSubscriber(String testTag,String loadText) {
-        this(testTag,true);
-        mLoadText = loadText;
-    }
-
-
-    public SimpleSubscriber(String testTag) {
-        this(testTag,true);
-    }
-
-    protected void showDialog() {
-        if (mLoadingDialog == null) {
-            if (Util.isEmpty(mLoadText)) {
-                mLoadText = "正在努力加载中...";
-            }
-            mLoadingDialog = ProgressDialog.show(mContext, null, mLoadText,
-                    true, true);
-        }
-        mLoadingDialog.show();
-    }
-
-    protected void disMissDialog() {
-        if (mLoadingDialog != null) {
-            mLoadingDialog.dismiss();
-        }
+    public SimpleSubscriber(Context context, String testTag) {
+        super(context, testTag);
     }
 
     @Override
-    public void onSubscribe(Subscription s) {
-        //示对话框
-        if (mIsShowDialog) {
-            showDialog();
-        }
-        s.request(Long.MAX_VALUE);
-    }
-
-    @Override
-    public void onNext(T t) {
-        doOnNext(t);
-    }
-
-
-    @Override
-    public void onError(Throwable t) {
-        //显示错误
-        if (mIsShowDialog) {
-            disMissDialog();
-        }
-
-        new ToastUtil(mContext).showToast(Config.getErrorToastString());
-
-        if (t != null) {
-            t.printStackTrace();
-        }
-        LogUtil.e(TAG, mTestTag + ":onError--->>" + ((t == null || Util.isEmpty(t.getMessage())) ? "未知错误" : t.getMessage()));
-    }
-
-    @Override
-    public void onComplete() {
-        //消失对话框
-        if (mIsShowDialog) {
-            disMissDialog();
+    public void doOnNext(ResponseBody result) {
+        try {
+            String s = result.string();
+            //执行具体的解析数据逻辑
+            doOnNext(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+            onError(e);
         }
     }
 
     //子类去实现具体的解析逻辑
-    public abstract void doOnNext(T result);
+    public abstract void doOnNext(String result);
 }

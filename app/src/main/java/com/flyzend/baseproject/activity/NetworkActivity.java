@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.flyzend.baseproject.R;
 import com.flyzend.baseproject.bean.WeatherBean;
-import com.flyzend.baseproject.client.BaseSubscriber;
+import com.flyzend.baseproject.client.SimpleSubscriber;
 import com.flyzend.baseproject.service.ApiService;
 import com.flyzend.baseproject.utils.Util;
 
@@ -24,7 +24,7 @@ public class NetworkActivity extends BaseActivity {
         map.put("key","520520test");
         map.put("city","南京");
         map.put("province","江苏");
-        ApiService.build(this).get(url,map).subscribe(new BaseSubscriber("TEST-TAG") {
+        ApiService.build(this).get(url,map).subscribe(new SimpleSubscriber(this,"TEST-TAG") {
             @Override
             public void doOnNext(String result) {
                 mTextView.setText("get请求结果："+result);
@@ -34,13 +34,13 @@ public class NetworkActivity extends BaseActivity {
                 }
             }
         });
-//        ApiService.build(this).post(url,map).subscribe(new BaseSubscriber() {
+//        ApiService.build(this).post(url,map).subscribe(new SimpleSubscriber() {
 //            @Override
 //            public void doOnNext(String result) {
 //                mTextView.setText("post请求结果："+result);
 //            }
 //        });
-//        ApiService.build(this).postJson(url,map).subscribe(new BaseSubscriber() {
+//        ApiService.build(this).postJson(url,map).subscribe(new SimpleSubscriber() {
 //            @Override
 //            public void doOnNext(String result) {
 //                mTextView.setText("postJson请求结果："+result);
