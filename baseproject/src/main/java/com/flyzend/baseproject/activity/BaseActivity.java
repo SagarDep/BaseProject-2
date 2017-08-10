@@ -32,7 +32,7 @@ public abstract class BaseActivity extends RxAppCompatActivity
         implements View.OnClickListener {
     protected final String TAG = getClass().getSimpleName();
     protected Context mContext;
-    private ToastUtil mToastUtil;
+    protected ToastUtil mToastUtil;
     private ProgressDialog mLoadingDialog;
     private List<Fragment> mFragments;
     private int fragment_container = -1;

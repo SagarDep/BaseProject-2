@@ -10,6 +10,8 @@ public class Config {
 
     public static String ERROR_TOAST_STRING = "";//网络异常提示语
 
+    public static int toastGravity = 0;//toast弹出的位置
+
     public static String getErrorToastString(){
         if (Util.isEmpty(ERROR_TOAST_STRING)){
             return "网络异常";
