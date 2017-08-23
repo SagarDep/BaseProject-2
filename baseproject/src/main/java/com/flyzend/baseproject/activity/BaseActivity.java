@@ -110,18 +110,30 @@ public abstract class BaseActivity extends RxAppCompatActivity
      * @param logBody
      */
     protected void e(String logBody) {
+        if (logBody == null){
+            return;
+        }
         LogUtil.e(TAG, logBody);
     }
 
     protected void v(String logBody) {
+        if (logBody == null){
+            return;
+        }
         LogUtil.v(TAG, logBody);
     }
 
     protected void i(String logBody) {
+        if (logBody == null){
+            return;
+        }
         LogUtil.i(TAG, logBody);
     }
 
     protected void d(String logBody) {
+        if (logBody == null){
+            return;
+        }
         LogUtil.d(TAG, logBody);
     }
 
