@@ -84,7 +84,9 @@ abstract public class BaseSubscriber<T> implements Subscriber<T> {
             disMissDialog();
         }
 
-        new ToastUtil(mContext).showToast(Config.getErrorToastString());
+        if (Config.SHOW_NETWORK_ERROR_TOAST) {
+            new ToastUtil(mContext).showToast(Config.getErrorToastString());
+        }
 
         if (t != null) {
             t.printStackTrace();

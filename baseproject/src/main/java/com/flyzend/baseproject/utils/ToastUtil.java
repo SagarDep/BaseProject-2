@@ -3,7 +3,7 @@ package com.flyzend.baseproject.utils;
 import android.content.Context;
 import android.widget.Toast;
 
-import static com.flyzend.baseproject.utils.Config.toastGravity;
+import static com.flyzend.baseproject.utils.Config.TOAST_GRAVITY;
 
 public final class ToastUtil {
 	private Context mContext;
@@ -29,8 +29,8 @@ public final class ToastUtil {
 			if (mGravity != 0){
 				mToast.setGravity(mGravity,0,0);
 			}
-			else if (toastGravity != 0){
-				mToast.setGravity(toastGravity,0,0);
+			else if (TOAST_GRAVITY != 0){
+				mToast.setGravity(TOAST_GRAVITY,0,0);
 			}
 		} else {
 			mToast.setText(stringId);
@@ -45,8 +45,8 @@ public final class ToastUtil {
 			if (mGravity != 0){
 				mToast.setGravity(mGravity,0,0);
 			}
-			else if (toastGravity != 0){
-				mToast.setGravity(toastGravity,0,0);
+			else if (TOAST_GRAVITY != 0){
+				mToast.setGravity(TOAST_GRAVITY,0,0);
 			}
 		} else {
 			mToast.setText(msg);
@@ -61,8 +61,8 @@ public final class ToastUtil {
 			if (mGravity != 0){
 				mToast.setGravity(mGravity,0,0);
 			}
-			else if (toastGravity != 0){
-				mToast.setGravity(toastGravity,0,0);
+			else if (TOAST_GRAVITY != 0){
+				mToast.setGravity(TOAST_GRAVITY,0,0);
 			}
 		} else {
 			mToast.setText(msg);
