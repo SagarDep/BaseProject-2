@@ -18,16 +18,17 @@ import in.srain.cube.views.ptr.PtrHandler;
  * Adapter 使用三方的BaseQuickAdapter
  */
 
-public class EasyRecyclerView extends PtrClassicFrameLayout implements PtrHandler{
+public class EasyRecyclerView extends PtrClassicFrameLayout implements PtrHandler {
     private Context mContext;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.ItemDecoration mItemDecoration;
     private OnRefreshListener mOnRefreshListener;
+    private boolean isRefreshEnable;
 
     public EasyRecyclerView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public EasyRecyclerView(Context context, AttributeSet attrs) {
@@ -36,10 +37,14 @@ public class EasyRecyclerView extends PtrClassicFrameLayout implements PtrHandle
         init();
     }
 
+    public void setRefreshEnable(boolean refreshEnable) {
+        isRefreshEnable = refreshEnable;
+    }
+
     private void init() {
         mRecyclerView = new RecyclerView(mContext);
-        mRecyclerView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+        mRecyclerView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         setPtrHandler(this);
         addView(mRecyclerView);
     }
@@ -66,27 +71,28 @@ public class EasyRecyclerView extends PtrClassicFrameLayout implements PtrHandle
     }
 
     //获取RecyclerView
-    public RecyclerView getRecyclerView(){
+    public RecyclerView getRecyclerView() {
         return mRecyclerView;
     }
 
-    public void setRefreshListener(OnRefreshListener onRefreshListener){
+    public void setRefreshListener(OnRefreshListener onRefreshListener) {
         mOnRefreshListener = onRefreshListener;
+        isRefreshEnable = true;
     }
 
     @Override
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return PtrDefaultHandler.checkContentCanBePulledDown(frame, mRecyclerView, header);
+        return isRefreshEnable && PtrDefaultHandler.checkContentCanBePulledDown(frame, mRecyclerView, header);
     }
 
     @Override
     public void onRefreshBegin(PtrFrameLayout frame) {
-        if (mOnRefreshListener != null){
+        if (mOnRefreshListener != null) {
             mOnRefreshListener.onRefresh();
         }
     }
 
-    public interface OnRefreshListener{
+    public interface OnRefreshListener {
         void onRefresh();
     }
 }
