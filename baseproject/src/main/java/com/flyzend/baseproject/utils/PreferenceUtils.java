@@ -104,7 +104,7 @@ public class PreferenceUtils {
      * @param object 待加密的转换为String的对象
      * @return String   加密后的String
      */
-    private static String Object2String(Object object) {
+    private String Object2String(Object object) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream;
         try {
@@ -125,7 +125,7 @@ public class PreferenceUtils {
      * @param objectString 待解密的String
      * @return object      解密后的object
      */
-    private static Object String2Object(String objectString) {
+    private Object String2Object(String objectString) {
         byte[] mobileBytes = Base64.decode(objectString.getBytes(), Base64.DEFAULT);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(mobileBytes);
         ObjectInputStream objectInputStream;
@@ -147,7 +147,7 @@ public class PreferenceUtils {
      * @param key        储存对象的key
      * @param saveObject 储存的对象
      */
-    public static void saveObject(String key, Object saveObject) {
+    public void putObject(String key, Object saveObject) {
         Editor editor = mSharedPreferences.edit();
         String string = Object2String(saveObject);
         editor.putString(key, string);
@@ -160,7 +160,7 @@ public class PreferenceUtils {
      * @param key     储存对象的key
      * @return object 返回根据key得到的对象
      */
-    public static Object getObject(String key) {
+    public Object getObject(String key) {
         String string = mSharedPreferences.getString(key, null);
         if (string != null) {
             return String2Object(string);
