@@ -24,6 +24,7 @@ public class BaseV4Fragment extends RxFragment implements View.OnClickListener {
     protected Context mContext;
     private ToastUtil mToastUtil;
     private ProgressDialog mLoadingDialog;
+    private boolean mLoadDialogCanceledOutSide = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -133,9 +134,14 @@ public class BaseV4Fragment extends RxFragment implements View.OnClickListener {
         mToastUtil.showToastLong(msg);
     }
 
+    protected void setLoadDialogCanceledOutSide(boolean canceledOutSide){
+        mLoadDialogCanceledOutSide = canceledOutSide;
+    }
+
     protected void showLoading() {
         if (mLoadingDialog == null) {
             mLoadingDialog = ProgressDialog.show(mContext, null, "正在努力加载中...", true, true);
+            mLoadingDialog.setCanceledOnTouchOutside(mLoadDialogCanceledOutSide);
         }
         mLoadingDialog.show();
     }

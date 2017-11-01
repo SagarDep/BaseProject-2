@@ -34,6 +34,7 @@ public abstract class BaseActivity extends RxAppCompatActivity
     protected Context mContext;
     protected ToastUtil mToastUtil;
     private ProgressDialog mLoadingDialog;
+    private boolean mLoadDialogCanceledOutSide = false;
     private List<Fragment> mFragments;
     private int fragment_container = -1;
 
@@ -149,9 +150,14 @@ public abstract class BaseActivity extends RxAppCompatActivity
         showLoading("正在努力加载中...");
     }
 
+    protected void setLoadDialogCanceledOutSide(boolean canceledOutSide){
+        mLoadDialogCanceledOutSide = canceledOutSide;
+    }
+
     protected void showLoading(String msg) {
         if (mLoadingDialog == null) {
             mLoadingDialog = ProgressDialog.show(this, null, msg, true, true);
+            mLoadingDialog.setCanceledOnTouchOutside(mLoadDialogCanceledOutSide);
         }
         if (!mLoadingDialog.isShowing()) {
             mLoadingDialog.show();
