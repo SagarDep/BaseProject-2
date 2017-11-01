@@ -20,6 +20,7 @@ abstract public class BaseSubscriber<T> implements Subscriber<T> {
     private static final String TAG = "BaseSubscriber";
     //加载对话框
     protected ProgressDialog mLoadingDialog;
+    private boolean mLoadDialogCanceledOutSide = false;
     //是否显示加载对话框
     protected boolean mIsShowDialog;
     protected Context mContext;
@@ -43,6 +44,10 @@ abstract public class BaseSubscriber<T> implements Subscriber<T> {
         this(context,testTag,"",true);
     }
 
+    protected void setLoadDialogCanceledOutSide(boolean canceledOutSide){
+        mLoadDialogCanceledOutSide = canceledOutSide;
+    }
+
     protected void showDialog() {
         if (mLoadingDialog == null) {
             if (Util.isEmpty(mLoadText)) {
@@ -50,6 +55,7 @@ abstract public class BaseSubscriber<T> implements Subscriber<T> {
             }
             mLoadingDialog = ProgressDialog.show(mContext, null, mLoadText,
                     true, true);
+            mLoadingDialog.setCanceledOnTouchOutside(mLoadDialogCanceledOutSide);
         }
         if (!mLoadingDialog.isShowing()) {
             mLoadingDialog.show();
