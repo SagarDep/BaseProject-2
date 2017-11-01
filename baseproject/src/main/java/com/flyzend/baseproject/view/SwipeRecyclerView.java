@@ -18,7 +18,7 @@ import com.flyzend.www.baseproject.R;
  * 默认使用垂直线性布局管理器
  * Adapter 使用三方的BaseQuickAdapter
  * @deprecated 由于谷歌官方SwipeRefreshLayout 不支持自定义头部布局。
- *             推荐更换EasyRecyclerView，使用的是第三方android-Ultra-Pull-To-Refresh，支持自定义刷新布局
+ *             推荐更换EasyRecyclerView，使用的是第三方SmartRefreshLayout，支持自定义刷新布局
  */
 @Deprecated
 public class SwipeRecyclerView extends LinearLayout{

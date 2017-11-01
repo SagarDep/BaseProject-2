@@ -3,7 +3,7 @@ package com.flyzend.baseproject.client;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import com.flyzend.baseproject.utils.Config;
+import com.flyzend.baseproject.utils.BaseProjectConfig;
 import com.flyzend.baseproject.utils.LogUtil;
 import com.flyzend.baseproject.utils.ToastUtil;
 import com.flyzend.baseproject.utils.Util;
@@ -84,8 +84,8 @@ abstract public class BaseSubscriber<T> implements Subscriber<T> {
             disMissDialog();
         }
 
-        if (Config.SHOW_NETWORK_ERROR_TOAST) {
-            new ToastUtil(mContext).showToast(Config.getErrorToastString());
+        if (BaseProjectConfig.SHOW_NETWORK_ERROR_TOAST) {
+            new ToastUtil(mContext).showToast(BaseProjectConfig.getErrorToastString());
         }
 
         if (t != null) {

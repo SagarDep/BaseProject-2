@@ -1,9 +1,10 @@
 package com.flyzend.baseproject.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.Toast;
 
-import static com.flyzend.baseproject.utils.Config.TOAST_GRAVITY;
+import static com.flyzend.baseproject.utils.BaseProjectConfig.TOAST_GRAVITY;
 
 public final class ToastUtil {
 	private Context mContext;
@@ -22,6 +23,7 @@ public final class ToastUtil {
 		mContext = context;
 	}
 
+	@SuppressLint("ShowToast")
 	public void showToast(final int stringId) {
 		if (mToast == null) {
 			mToast = Toast.makeText(mContext, mContext.getResources()
@@ -39,6 +41,7 @@ public final class ToastUtil {
 		mToast.show();
 	}
 
+	@SuppressLint("ShowToast")
 	public void showToast(final String msg) {
 		if (mToast == null) {
 			mToast = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT);
@@ -55,6 +58,7 @@ public final class ToastUtil {
 		mToast.show();
 	}
 
+	@SuppressLint("ShowToast")
 	public void showToastLong(final String msg) {
 		if (mToast == null) {
 			mToast = Toast.makeText(mContext, msg, Toast.LENGTH_LONG);

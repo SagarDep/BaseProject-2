@@ -4,36 +4,30 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.View;
 
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 /**
  * Created by 王灿 on 2017/8/1.
- * 封装PtrFrameLayout与RecyclerView 实现下拉刷新。
+ * 封装SmartRefreshLayout与RecyclerView 实现下拉刷新，上拉加载更多
  * 默认使用垂直线性布局管理器
- * Adapter 使用三方的BaseQuickAdapter
  *
- * PtrFrameLayout 已经很多年没有维护，推荐使用SmartRefreshLayout
+ * 推荐直接使用三方的框架
  */
 @Deprecated
-public class EasyRecyclerView extends PtrClassicFrameLayout implements PtrHandler {
+public class SmartRecyclerView extends SmartRefreshLayout {
     private Context mContext;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.ItemDecoration mItemDecoration;
-    private OnRefreshListener mOnRefreshListener;
     private boolean isRefreshEnable;
 
-    public EasyRecyclerView(Context context) {
+    public SmartRecyclerView(Context context) {
         this(context, null);
     }
 
-    public EasyRecyclerView(Context context, AttributeSet attrs) {
+    public SmartRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
         init();
@@ -47,7 +41,6 @@ public class EasyRecyclerView extends PtrClassicFrameLayout implements PtrHandle
         mRecyclerView = new RecyclerView(mContext);
         mRecyclerView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        setPtrHandler(this);
         addView(mRecyclerView);
     }
 
@@ -75,26 +68,5 @@ public class EasyRecyclerView extends PtrClassicFrameLayout implements PtrHandle
     //获取RecyclerView
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
-    }
-
-    public void setRefreshListener(OnRefreshListener onRefreshListener) {
-        mOnRefreshListener = onRefreshListener;
-        isRefreshEnable = true;
-    }
-
-    @Override
-    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return isRefreshEnable && PtrDefaultHandler.checkContentCanBePulledDown(frame, mRecyclerView, header);
-    }
-
-    @Override
-    public void onRefreshBegin(PtrFrameLayout frame) {
-        if (mOnRefreshListener != null) {
-            mOnRefreshListener.onRefresh();
-        }
-    }
-
-    public interface OnRefreshListener {
-        void onRefresh();
     }
 }
