@@ -10,12 +10,15 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.Map;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
@@ -120,6 +123,19 @@ public class ApiService {
         private RequestBody getRequestBody(JSONObject json){
            return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8")
                    ,json.toString());
+        }
+
+        public Flowable<ResponseBody> upload(String url, File file){
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+            // MultipartBody.Part is used to send also the actual file name
+            MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+            // add another part within the multipart request
+            String descriptionString = "file upload default description";
+            RequestBody description = RequestBody.create(
+                    MediaType.parse("multipart/form-data"), descriptionString);
+            return bindLifeCycle(getIBaseService().upload(url,description,body));
         }
     }
 }
