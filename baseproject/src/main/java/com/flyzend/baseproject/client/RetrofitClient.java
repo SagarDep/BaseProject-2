@@ -5,6 +5,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
 
+import me.jessyan.progressmanager.ProgressManager;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -31,7 +32,7 @@ public class RetrofitClient {
 
     private void initOkHttpClient() {
         if (sBuilder == null) {
-            sBuilder = new OkHttpClient.Builder();
+            sBuilder = ProgressManager.getInstance().with(new OkHttpClient.Builder());
         }
         if (BuildConfig.DEBUG) {
             sBuilder.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
