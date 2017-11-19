@@ -301,7 +301,7 @@ public abstract class BaseActivity extends RxAppCompatActivity
         new BaseDialog(mContext).showDialog(title,msg,listener);
     }
 
-    interface OnProgressListener {
+    public interface OnProgressListener {
         void onProgress(int percent);
         void onError(Exception e);
         void onComplete();
