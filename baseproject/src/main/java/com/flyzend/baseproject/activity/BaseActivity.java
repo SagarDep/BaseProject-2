@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -23,6 +25,9 @@ import java.util.List;
 import io.reactivex.Flowable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
+import me.jessyan.progressmanager.ProgressListener;
+import me.jessyan.progressmanager.ProgressManager;
+import me.jessyan.progressmanager.body.ProgressInfo;
 
 /**
  * Created by 王灿 on 2017/1/9.
@@ -37,6 +42,8 @@ public abstract class BaseActivity extends RxAppCompatActivity
     private boolean mLoadDialogCanceledOutSide = false;
     private List<Fragment> mFragments;
     private int fragment_container = -1;
+    private OnProgressListener mOnProgressListener;
+    private ProgressInfo mLastUploadingInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +110,48 @@ public abstract class BaseActivity extends RxAppCompatActivity
     protected void jumpToActivity(Class<?> targetActiviyClass,Bundle bundle, int requestCode) {
         Intent startIntent = new Intent(mContext, targetActiviyClass);
         jumpToActivity(startIntent,bundle, requestCode);
+    }
+
+    protected void addProgressListener(String url,OnProgressListener progressListener){
+        this.mOnProgressListener = progressListener;
+        ProgressManager.getInstance().addRequestListener(url, getUploadListener());
+    }
+
+    @NonNull
+    private ProgressListener getUploadListener() {
+        return new ProgressListener() {
+            @Override
+            public void onProgress(ProgressInfo progressInfo) {
+                // 如果你不屏蔽用户重复点击上传或下载按钮,就可能存在同一个 Url 地址,上一次的上传或下载操作都还没结束,
+                // 又开始了新的上传或下载操作,那现在就需要用到 id(请求开始时的时间) 来区分正在执行的进度信息
+                // 这里我就取最新的上传进度用来展示,顺便展示下 id 的用法
+
+                if (mLastUploadingInfo == null) {
+                    mLastUploadingInfo = progressInfo;
+                }
+
+                //因为是以请求开始时的时间作为 Id ,所以值越大,说明该请求越新
+                if (progressInfo.getId() < mLastUploadingInfo.getId()) {
+                    return;
+                } else if (progressInfo.getId() > mLastUploadingInfo.getId()) {
+                    mLastUploadingInfo = progressInfo;
+                }
+
+                int progress = mLastUploadingInfo.getPercent();
+                mOnProgressListener.onProgress(progress);
+                Log.d(TAG, "--Upload-- " + progress + " %  " + mLastUploadingInfo.getSpeed() + " byte/s  " + mLastUploadingInfo.toString());
+                if (mLastUploadingInfo.isFinish()) {
+                    //说明已经上传完成
+                    Log.d(TAG, "--Upload-- finish");
+                    mOnProgressListener.onComplete();
+                }
+            }
+
+            @Override
+            public void onError(long id, Exception e) {
+               mOnProgressListener.onError(e);
+            }
+        };
     }
 
     /**
@@ -250,5 +299,11 @@ public abstract class BaseActivity extends RxAppCompatActivity
 
     protected void showDialog(String title, String msg, DialogInterface.OnClickListener listener){
         new BaseDialog(mContext).showDialog(title,msg,listener);
+    }
+
+    interface OnProgressListener {
+        void onProgress(int percent);
+        void onError(Exception e);
+        void onComplete();
     }
 }
