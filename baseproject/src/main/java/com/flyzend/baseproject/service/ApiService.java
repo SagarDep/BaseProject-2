@@ -11,6 +11,8 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
@@ -136,6 +138,20 @@ public class ApiService {
             RequestBody description = RequestBody.create(
                     MediaType.parse("multipart/form-data"), descriptionString);
             return bindLifeCycle(getIBaseService().upload(url,description,body));
+        }
+
+        public Flowable<ResponseBody> uploads(String url,List<File> files){
+            return bindLifeCycle(getIBaseService().uploads(url,filesToMultipartBodyParts(files)));
+        }
+
+        private List<MultipartBody.Part> filesToMultipartBodyParts(List<File> files) {
+            List<MultipartBody.Part> parts = new ArrayList<>(files.size());
+            for (File file : files) {
+                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+                parts.add(part);
+            }
+            return parts;
         }
     }
 }

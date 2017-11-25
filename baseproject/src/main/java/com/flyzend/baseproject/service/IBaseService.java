@@ -1,5 +1,6 @@
 package com.flyzend.baseproject.service;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Flowable;
@@ -35,6 +36,10 @@ public interface IBaseService {
 
     @Multipart
     @POST
-    Flowable<ResponseBody> upload(@Url String url,@Part("description") RequestBody description,
+    Flowable<ResponseBody> upload(@Url String url, @Part("description") RequestBody description,
                                   @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST
+    Flowable<ResponseBody> uploads(@Url String url, @Part() List<MultipartBody.Part> parts);
 }
