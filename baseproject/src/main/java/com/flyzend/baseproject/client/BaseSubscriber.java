@@ -26,22 +26,27 @@ abstract public class BaseSubscriber<T> implements Subscriber<T> {
     protected Context mContext;
     protected String mLoadText;
     protected String mTestTag;
+    protected boolean mIsShowErrorToast = true;
 
-
-    public BaseSubscriber(Context context, String testTag, String loadText, boolean isShowDialog) {
+    public BaseSubscriber(Context context, String testTag, String loadText, boolean isShowDialog,boolean isShowErrorToast) {
         mContext = context;
         mTestTag = testTag;
         mLoadText = loadText;
         mIsShowDialog = isShowDialog;
+        mIsShowErrorToast = isShowErrorToast;
         mToastUtil = new ToastUtil(mContext);
     }
 
     public BaseSubscriber(Context context, String testTag, boolean isShowDialog) {
-        this(context,testTag,"",isShowDialog);
+        this(context,testTag,"",isShowDialog,true);
+    }
+
+    public BaseSubscriber(Context context, String testTag, boolean isShowDialog,boolean isShowErrorToast){
+        this(context,testTag,"",isShowDialog,isShowErrorToast);
     }
 
     public BaseSubscriber(Context context, String testTag) {
-        this(context,testTag,"",true);
+        this(context,testTag,"",true,true);
     }
 
     protected void setLoadDialogCanceledOutSide(boolean canceledOutSide){
@@ -90,7 +95,7 @@ abstract public class BaseSubscriber<T> implements Subscriber<T> {
             disMissDialog();
         }
 
-        if (BaseProjectConfig.SHOW_NETWORK_ERROR_TOAST) {
+        if (BaseProjectConfig.SHOW_NETWORK_ERROR_TOAST && mIsShowErrorToast) {
             new ToastUtil(mContext).showToast(BaseProjectConfig.getErrorToastString());
         }
 
