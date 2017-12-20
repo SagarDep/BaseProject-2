@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.flyzend.baseproject.R;
 import com.flyzend.baseproject.bean.WeatherBean;
-import com.flyzend.baseproject.client.SimpleSubscriber;
+import com.flyzend.baseproject.net.NetSubscriber;
 import com.flyzend.baseproject.service.ApiService;
 import com.flyzend.baseproject.utils.Util;
 
@@ -24,9 +24,9 @@ public class NetworkActivity extends BaseActivity {
         map.put("key","520520test");
         map.put("city","南京");
         map.put("province","江苏");
-        ApiService.build(this).get(url,map).subscribe(new SimpleSubscriber(this,"TEST-TAG") {
+        ApiService.build(this).get(url,map).subscribe(new NetSubscriber(this,"TEST-TAG") {
             @Override
-            public void doOnNext(String result) {
+            public void onSuccess(String result) {
                 mTextView.setText("get请求结果："+result);
                 WeatherBean bean = Util.parseGson(result, WeatherBean.class);
                 if (bean != null){

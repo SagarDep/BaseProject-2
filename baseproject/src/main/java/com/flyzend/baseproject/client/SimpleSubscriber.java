@@ -10,8 +10,10 @@ import okhttp3.ResponseBody;
 /**
  * 订阅者的基类，封装对话框等操作
  * Created by 王灿 on 2016/12/20.
+ * @deprecated
+ * 请使用 {@link com.flyzend.baseproject.net.NetSubscriber}
  */
-
+@Deprecated
 public abstract class SimpleSubscriber extends BaseSubscriber<ResponseBody> {
 
     public SimpleSubscriber(Context context, String testTag, String loadText, boolean isShowDialog, boolean isShowErrorToast) {

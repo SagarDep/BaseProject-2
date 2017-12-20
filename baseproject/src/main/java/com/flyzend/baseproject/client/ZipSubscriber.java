@@ -4,8 +4,10 @@ import android.content.Context;
 
 /**
  * Created by 王灿 on 2017/8/5.
+ * @deprecated
+ * 请使用 {@link com.flyzend.baseproject.net.ZipNetSubscriber}
  */
-
+@Deprecated
 public abstract class ZipSubscriber extends BaseSubscriber<BaseZipBean> {
     public ZipSubscriber(Context context, String testTag, String loadText, boolean isShowDialog, boolean isShowErrorToast) {
         super(context, testTag, loadText, isShowDialog, isShowErrorToast);

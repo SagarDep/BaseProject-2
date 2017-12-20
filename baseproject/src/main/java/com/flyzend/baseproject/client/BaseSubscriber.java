@@ -13,8 +13,10 @@ import org.reactivestreams.Subscription;
 
 /**
  * Created by Wangleiyong on 2017/7/25.
+ * @deprecated
+ * 请使用 {@link com.flyzend.baseproject.net.AbstractBaseNetSubscriber}
  */
-
+@Deprecated
 abstract public class BaseSubscriber<T> implements Subscriber<T> {
     protected ToastUtil mToastUtil;
     private static final String TAG = "BaseSubscriber";
