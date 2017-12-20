@@ -43,8 +43,6 @@ public abstract class AbstractBaseNetSubscriber<T, R> implements Subscriber<T> {
         //==============init UI==============
         this.context = context;
         this.toast = new ToastUtil(context);
-        this.progressDialog = ProgressDialog.show(context, null, progressBarText,
-                true, true);
         this.progressDialog.setCanceledOnTouchOutside(isProgressBarCancelOutSide);
     }
 
@@ -72,7 +70,8 @@ public abstract class AbstractBaseNetSubscriber<T, R> implements Subscriber<T> {
     @Override
     public void onSubscribe(Subscription s) {
         if (isShowProgressBar) {
-            progressDialog.show();
+            progressDialog = ProgressDialog.show(context, null, progressBarText,
+                    true, true);
         }
         s.request(Long.MAX_VALUE);
     }
