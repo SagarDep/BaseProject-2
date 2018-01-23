@@ -40,16 +40,21 @@ public class AppManager {
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     public Activity currentActivity() {
-        Activity activity = activityStack.lastElement();
-        return activity;
+        if (!activityStack.empty()) {
+            Activity activity = activityStack.lastElement();
+            return activity;
+        }
+        return null;
     }
 
     /**
      * 结束当前Activity（堆栈中最后一个压入的）
      */
     public void finishActivity() {
-        Activity activity = activityStack.lastElement();
-        finishActivity(activity);
+        if (!activityStack.empty()) {
+            Activity activity = activityStack.lastElement();
+            finishActivity(activity);
+        }
     }
 
     /**
