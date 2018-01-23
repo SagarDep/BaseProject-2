@@ -37,6 +37,15 @@ public class AppManager {
     }
 
     /**
+     * 从堆栈移除activity
+     */
+    public void removeActivity(Activity activity){
+        if (!activityStack.empty()) {
+            activityStack.remove(activity);
+        }
+    }
+
+    /**
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     public Activity currentActivity() {
@@ -62,7 +71,6 @@ public class AppManager {
      */
     public void finishActivity(Activity activity) {
         if (activity != null) {
-            activityStack.remove(activity);
             activity.finish();
         }
     }

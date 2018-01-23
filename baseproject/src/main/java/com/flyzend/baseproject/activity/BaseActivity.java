@@ -221,8 +221,8 @@ public abstract class BaseActivity extends RxAppCompatActivity
 
     @Override
     protected void onDestroy() {
+        AppManager.getInstance().removeActivity(this);
         super.onDestroy();
-        AppManager.getInstance().finishActivity(this);
     }
 
     @Override
