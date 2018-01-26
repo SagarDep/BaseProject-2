@@ -21,7 +21,7 @@ public abstract class SimpleFileDownloadListener extends FileDownloadListener {
 
     @Override
     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-        int percent = (int) (((float) soFarBytes / totalBytes) * 100);
+        int percent = (int) (soFarBytes * (100f/totalBytes));
         updateProgress(percent);
     }
 
