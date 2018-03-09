@@ -12,7 +12,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
  * 封装SmartRefreshLayout与RecyclerView 实现下拉刷新，上拉加载更多
  * 默认使用垂直线性布局管理器
  *
- * 推荐直接使用三方的框架
+ * 推荐直接使用官方RecyclerView 配合第三方下来刷新
  */
 @Deprecated
 public class SmartRecyclerView extends SmartRefreshLayout {

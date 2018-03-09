@@ -168,4 +168,16 @@ public class FileUtils {
             }
         }
     }
+
+    public static boolean isFileExists(String path) {
+        try {
+            File f = new File(path);
+            if (!f.exists()) {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }

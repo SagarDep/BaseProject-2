@@ -17,7 +17,7 @@ import in.srain.cube.views.ptr.PtrHandler;
  * 默认使用垂直线性布局管理器
  * Adapter 使用三方的BaseQuickAdapter
  *
- * PtrFrameLayout 已经很多年没有维护，推荐使用SmartRefreshLayout
+ * PtrFrameLayout 已经很多年没有维护，推荐直接使用官方RecyclerView 配合第三方下来刷新
  */
 @Deprecated
 public class EasyRecyclerView extends PtrClassicFrameLayout implements PtrHandler {
