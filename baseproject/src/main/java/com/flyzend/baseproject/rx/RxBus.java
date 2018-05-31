@@ -4,6 +4,7 @@ import com.trello.rxlifecycle2.components.RxFragment;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
@@ -44,6 +45,19 @@ public class RxBus {
     public Disposable getEvent(RxFragment rxFragment, int code, Consumer<BaseEventBean> observer) {
         return new BuildFlowable(rxFragment, code).bindLifeCycle(toFlowable()).subscribe(observer);
     }
+
+    public Disposable getEventOnMainThread(RxAppCompatActivity activity, int code, Consumer<BaseEventBean> observer) {
+        return new BuildFlowable(activity, code).bindLifeCycle(toFlowable()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+    }
+
+    public Disposable getEventOnMainThread(com.trello.rxlifecycle2.components.support.RxFragment rxV4Fragment, int code, Consumer<BaseEventBean> observer) {
+        return new BuildFlowable(rxV4Fragment, code).bindLifeCycle(toFlowable()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+    }
+
+    public Disposable getEventOnMainThread(RxFragment rxFragment, int code, Consumer<BaseEventBean> observer) {
+        return new BuildFlowable(rxFragment, code).bindLifeCycle(toFlowable()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+    }
+
 //
 //    public void unRegister(Disposable disposable) {
 //        if (disposable != null && !disposable.isDisposed()) {
