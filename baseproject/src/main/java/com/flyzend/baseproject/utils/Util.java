@@ -1,5 +1,6 @@
 package com.flyzend.baseproject.utils;
 
+import com.chemanman.lib_mgson.MGson;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -30,7 +31,7 @@ public class Util {
      * **********************
      */
     public static <T> T parseGson(String json, Class<T> object) {
-        Gson gson = new Gson();
+        Gson gson = MGson.newGson();
         T t = null;
         try {
             t = gson.fromJson(json, object);
