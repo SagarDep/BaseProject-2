@@ -53,7 +53,11 @@ dependencies {
     //RX生命周期管理，避免内存泄漏
     implementation 'com.trello.rxlifecycle2:rxlifecycle:2.0.1'
     implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation('com.squareup.retrofit2:converter-gson:2.1.0')
+            {
+                exclude group: 'com.google.code.gson'
+                exclude group: 'com.squareup.okhttp3'
+            }
     //adapter-rxjava 导入rxjava1.5 与rxjava2 冲突，使用exclude排除对应jar包
     implementation('com.squareup.retrofit2:adapter-rxjava:2.1.0') { exclude(group: 'io.reactivex') }
     //如果网络访问的是字符串，使用scalars转换器转换
