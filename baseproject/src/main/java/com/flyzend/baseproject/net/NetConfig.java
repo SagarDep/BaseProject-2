@@ -14,6 +14,8 @@ public class NetConfig {
     boolean isShowErrorToast;
     //网络加载框文字内容
     String progressBarText;
+    //是否做请求检查，多次请求以最新的一次为准
+    boolean isCheckRequest;
 
     public NetConfig() {
         //==========默认值============
@@ -21,6 +23,7 @@ public class NetConfig {
         this.isShowProgressBar = true;
         this.isShowErrorToast = true;
         this.progressBarText = "正在努力加载中...";
+        this.isCheckRequest = false;
     }
 
     public NetConfig progressBarCancelOutSide(boolean progressBarCancelOutSide) {
@@ -40,6 +43,11 @@ public class NetConfig {
 
     public NetConfig progressBarText(String progressBarText) {
         this.progressBarText = progressBarText;
+        return this;
+    }
+
+    public NetConfig isCheckRequest(boolean isCheckRequest){
+        this.isCheckRequest = isCheckRequest;
         return this;
     }
 }

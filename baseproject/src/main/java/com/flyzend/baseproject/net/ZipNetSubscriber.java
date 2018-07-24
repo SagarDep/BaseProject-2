@@ -20,6 +20,10 @@ public abstract class ZipNetSubscriber extends AbstractBaseNetSubscriber<BaseZip
 
     @Override
     public void onNext(BaseZipBean bean) {
+        super.onNext(bean);
+        if (isCheckRequest && !isNeedRequest){
+            return;
+        }
         onSuccess(bean);
     }
 }

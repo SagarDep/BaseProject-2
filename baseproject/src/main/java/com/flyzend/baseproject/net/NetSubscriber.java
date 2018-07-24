@@ -24,6 +24,10 @@ public abstract class NetSubscriber extends AbstractBaseNetSubscriber<ResponseBo
 
     @Override
     public void onNext(ResponseBody responseBody) {
+        super.onNext(responseBody);
+        if (isCheckRequest && !isNeedRequest){
+            return;
+        }
         try {
             String s = responseBody.string();
             //执行具体的解析数据逻辑

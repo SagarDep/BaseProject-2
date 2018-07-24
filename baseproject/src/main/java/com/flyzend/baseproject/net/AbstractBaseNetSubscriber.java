@@ -31,15 +31,23 @@ public abstract class AbstractBaseNetSubscriber<T, R> implements Subscriber<T> {
     ProgressDialog progressDialog;
     ToastUtil toast;
 
+    //==============辅助功能=============
+    final boolean isCheckRequest;
+
+    //=================================
+    //当前请求是否是需要的请求，仅当isCheckRequest为true时生效
+    protected boolean isNeedRequest = false;
+    protected String currentRequestTag = "";
+
     public AbstractBaseNetSubscriber(@NonNull Context context, @NonNull String interfaceTag, @NonNull NetConfig netConfig) {
         //==============init config==============
         this.isProgressBarCancelOutSide = netConfig.isProgressBarCancelOutSide;
         this.isShowProgressBar = netConfig.isShowProgressBar;
         this.isShowErrorToast = netConfig.isShowErrorToast;
         this.progressBarText = netConfig.progressBarText;
+        this.isCheckRequest = netConfig.isCheckRequest;
 
         this.interfaceTag = interfaceTag;
-
         //==============init UI==============
         this.context = context;
         this.toast = new ToastUtil(context);
@@ -55,7 +63,9 @@ public abstract class AbstractBaseNetSubscriber<T, R> implements Subscriber<T> {
             progressDialog.dismiss();
         }
 
-        if (BaseProjectConfig.SHOW_NETWORK_ERROR_TOAST && isShowErrorToast) {
+        checkRequest();
+
+        if (BaseProjectConfig.SHOW_NETWORK_ERROR_TOAST && isShowErrorToast && (!isCheckRequest || isNeedRequest)) {
             toast.showToast(BaseProjectConfig.getErrorToastString());
         }
 
@@ -68,6 +78,12 @@ public abstract class AbstractBaseNetSubscriber<T, R> implements Subscriber<T> {
 
     @Override
     public void onSubscribe(Subscription s) {
+        if (isCheckRequest) {
+            currentRequestTag = String.valueOf(System.currentTimeMillis());
+            RequestCheckUtil.I.setRequest(context.getClass().getName(), currentRequestTag);
+            LogUtil.d(TAG, "startRequest,currentRequestTag:" + currentRequestTag + ",currentClassName:" + context.getClass().getName());
+        }
+
         if (isShowProgressBar) {
             progressDialog = ProgressDialog.show(context, null, progressBarText,
                     true, true);
@@ -82,6 +98,21 @@ public abstract class AbstractBaseNetSubscriber<T, R> implements Subscriber<T> {
             progressDialog.dismiss();
         }
         releaseUI();
+    }
+
+    @Override
+    public void onNext(T t) {
+        if (isCheckRequest) {
+            checkRequest();
+        }
+    }
+
+    private void checkRequest() {
+        isNeedRequest = currentRequestTag.equals(
+                RequestCheckUtil.I.getRequest(context.getClass().getName()));
+
+        LogUtil.d(TAG, "checkRequest,currentRequestTag:" + currentRequestTag + ",currentClassName:" + context.getClass().getName());
+        LogUtil.d(TAG, "checkRequest,isNeedRequest:" + isNeedRequest);
     }
 
     //请求回调
