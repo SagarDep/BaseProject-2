@@ -79,7 +79,7 @@ public abstract class AbstractBaseNetSubscriber<T, R> implements Subscriber<T> {
     @Override
     public void onSubscribe(Subscription s) {
         if (isCheckRequest) {
-            currentRequestTag = String.valueOf(System.currentTimeMillis());
+            currentRequestTag = interfaceTag + String.valueOf(System.currentTimeMillis());
             RequestCheckUtil.I.setRequest(context.getClass().getName(), currentRequestTag);
             LogUtil.d(TAG, "startRequest,currentRequestTag:" + currentRequestTag + ",currentClassName:" + context.getClass().getName());
         }
